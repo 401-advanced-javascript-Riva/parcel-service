@@ -15,8 +15,6 @@ const faker = require('faker');
 const storeName = process.env.STORE_NAME;
 const logger = require('./events');
 
-
-
 let id = 1;
 const fakeOrders = () => {
       let firstName = faker.name.firstName();
@@ -39,7 +37,4 @@ const fakeOrders = () => {
 logger.on('delivered', (order) =>  {
     logger.log(`Thank you  ${order.first_name}`);
 })
-
 setInterval(fakeOrders, 5000);
-
-
