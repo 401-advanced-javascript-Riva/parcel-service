@@ -1,0 +1,24 @@
+{
+  "name": "parcel-service",
+  "version": "1.0.0",
+  "description": "An event-driven application that uses built-in Node.js events to simulate realtime package delivery, networked events using TCP Creation , socket.io implementation and queue logic",
+  "main": "caps.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/401-advanced-javascript-Riva/parcel-service.git"
+  },
+  "author": "Riva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/401-advanced-javascript-Riva/parcel-service/issues"
+  },
+  "homepage": "https://github.com/401-advanced-javascript-Riva/parcel-service#readme",
+  "dependencies": {
+    "@code-fellows/supergoose": "^1.0.11",
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0"
+  }
+}
