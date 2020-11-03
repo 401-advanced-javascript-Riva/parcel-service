@@ -10,21 +10,24 @@ This files Monitors the system for events
       Emit a ‘delivered’ event with the same payload
 */
 
-const EventEmitter = require('events');
-const Logger = require('./events');
-let logger = new Logger();
+const logger = require('./events');
+// using currentORder to store order that is being delivered so it doesn't have to be passed back and forth between every event
+let currentOrder;
 
 //registering listeners for events
-logger.on('pickup', ()  => {
-    console.log('DRIVER: picked up [ORDER_ID]');
+logger.on('pickup', (order)  => {
+    currentOrder = order;
+    setTimeout(inTransit, 1000);
 });
+const inTransit = () => {
+    logger.log('DRIVER: picked up ' + currentOrder.id);
+    logger.emit('in-transit', currentOrder);
+    setTimeout(isDelivered, 3000);
+}
+const isDelivered = () => {
+    //emitting entire order
+    logger.emit('delivered ', currentOrder)
+    logger.log('delivered ' + currentOrder.id);
+    
+}
 
-logger.on('in-transit', ()  => {
-    console.log('{}');
-})
-
-logger.on('delivered', ()  => {
-    console.log('delivered');
-})
-
-logger.log('message');

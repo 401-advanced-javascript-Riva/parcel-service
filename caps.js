@@ -4,3 +4,7 @@
 - Logs every event to the console with a timestamp and the event payload
 i.e. “EVENT {}”
 */
+
+require('./driver');
+require('./vendor');
+console.log('starting caps');
