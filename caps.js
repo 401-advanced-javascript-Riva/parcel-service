@@ -7,8 +7,8 @@ i.e. “EVENT {}”
 
 require('./driver');
 require('./vendor');
-
 const logger = require('./events');
+
 function logWithTimeStamp(message, payload) {
     const now = new Date();
     logger.log(now.toTimeString() + ' EVENT ' + message, payload);

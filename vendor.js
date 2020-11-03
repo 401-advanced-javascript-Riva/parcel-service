@@ -9,6 +9,7 @@
     - Whenever the ‘delivered’ event occurs, Log “thank you” to the console
     */
 
+//faker allows me to generate mass amounts of data on the fly!
 const faker = require('faker');
 // const storeName = process.env.STORE_NAME;
 const logger = require('./events');
