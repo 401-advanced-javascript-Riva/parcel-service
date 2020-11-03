@@ -11,7 +11,7 @@ This files Monitors the system for events
 */
 
 const logger = require('./events');
-// using currentORder to store order that is being delivered so it doesn't have to be passed back and forth between every event
+// using currentOrder to store order that is being delivered so it doesn't have to be passed back and forth between every event
 let currentOrder;
 
 //registering listeners for events
@@ -26,7 +26,7 @@ const inTransit = () => {
 }
 const isDelivered = () => {
     //emitting entire order
-    logger.emit('delivered ', currentOrder)
+    logger.emit('delivered', currentOrder)
     logger.log('delivered ' + currentOrder.id);
     
 }

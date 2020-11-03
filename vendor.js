@@ -28,9 +28,12 @@ const fakeOrders = () => {
           "state" : state
       };
       id++;
-      logger.log('new order ready for pick up ', order)
+    logger.log('new order ready for pick up ', order)
     logger.emit('pickup', order);
 }
+logger.on('delivered', (order) =>  {
+    logger.log(`Thank you  ${order.first_name}`);
+})
 
 setInterval(fakeOrders, 5000);
 

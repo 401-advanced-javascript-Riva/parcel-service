@@ -7,4 +7,20 @@ i.e. “EVENT {}”
 
 require('./driver');
 require('./vendor');
-console.log('starting caps');
+
+const logger = require('./events');
+function logWithTimeStamp(message, payload) {
+    const now = new Date();
+    logger.log(now.toTimeString() + ' EVENT ' + message, payload);
+}
+logger.on('pickup', order => {
+   logWithTimeStamp('pickup', order);
+});
+
+logger.on('in-transit', order => {
+    logWithTimeStamp('in-transit', order);
+ });
+
+ logger.on('delivered', order => {
+    logWithTimeStamp('delivered', order);
+ });
