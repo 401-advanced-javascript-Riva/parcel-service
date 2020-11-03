@@ -8,7 +8,30 @@
 - Monitor the system for events …
     - Whenever the ‘delivered’ event occurs, Log “thank you” to the console
     */
+
+const faker = require('faker');
+const storeName = process.env.STORE_NAME;
 const EventEmitter = require('events');
-setInterval(() => {
-    logger.emit();
-}, 1000);
+
+function generateUsers() {
+  let users = []
+  for (let id=1; id <= 5; id++) {
+    let firstName = faker.name.firstName();
+    let lastName = faker.name.lastName();
+    let address = faker.address.city();
+    let state = faker.address.state();
+    users.push({
+        "storeName": storeName,
+        "orderid": id,
+        "first_name": firstName,
+        "last_name": lastName,
+        "address": address,
+        "state" : state
+    });
+  }
+  return users;
+}
+generateUsers();
+
+
+
