@@ -14,8 +14,8 @@ const logger = require('./events');
 // using currentOrder to store order that is being delivered so it doesn't have to be passed back and forth between every event
 let currentOrder;
 
-//registering listeners for events
-logger.on('pickup', (order)  => {
+//registering listener for event
+logger.on('pickup', order  => {
     currentOrder = order;
     setTimeout(inTransit, 1000);
 });

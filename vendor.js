@@ -29,6 +29,7 @@ const fakeOrders = () => {
       };
       id++;
     logger.log('new order ready for pick up ', order)
+    //calling the listener for pickup
     logger.emit('pickup', order);
 }
 logger.on('delivered', (order) =>  {
