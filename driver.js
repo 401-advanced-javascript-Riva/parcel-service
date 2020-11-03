@@ -12,22 +12,19 @@ This files Monitors the system for events
 
 const EventEmitter = require('events');
 const Logger = require('./events');
-const logger = new Logger();
+let logger = new Logger();
 
 //registering listeners for events
-logger.on('pickup', (arg)  => {
-    console.log('DRIVER: picked up [ORDER_ID]' , arg);
+logger.on('pickup', ()  => {
+    console.log('DRIVER: picked up [ORDER_ID]');
+});
+
+logger.on('in-transit', ()  => {
+    console.log('{}');
 })
 
-logger.on('in-transit', (arg)  => {
-    console.log('{}' , arg);
-})
-
-logger.on('delivered', (arg)  => {
-    console.log('delivered' , arg);
+logger.on('delivered', ()  => {
+    console.log('delivered');
 })
 
 logger.log('message');
-
-
-

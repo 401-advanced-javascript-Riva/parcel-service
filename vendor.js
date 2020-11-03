@@ -13,25 +13,26 @@ const faker = require('faker');
 const storeName = process.env.STORE_NAME;
 const EventEmitter = require('events');
 
-function generateUsers() {
-  let users = []
-  for (let id=1; id <= 5; id++) {
-    let firstName = faker.name.firstName();
-    let lastName = faker.name.lastName();
-    let address = faker.address.city();
-    let state = faker.address.state();
-    users.push({
-        "storeName": storeName,
-        "orderid": id,
-        "first_name": firstName,
-        "last_name": lastName,
-        "address": address,
-        "state" : state
-    });
-  }
-  return users;
+let id = 1;
+const fakeOrders = () => {
+ 
+      let firstName = faker.name.firstName();
+      let lastName = faker.name.lastName();
+      let address = faker.address.city();
+      let state = faker.address.state();
+      const users = {
+          "storeName": storeName,
+          "orderid": id,
+          "first_name": firstName,
+          "last_name": lastName,
+          "address": address,
+          "state" : state
+      };
+      id++;
+    console.log('getting users', users)
+    return users;
 }
-generateUsers();
 
+setInterval(fakeOrders, 5000);
 
-
+module.exports = fakeOrders;
