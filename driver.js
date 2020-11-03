@@ -30,4 +30,3 @@ const isDelivered = () => {
     logger.log('delivered ' + currentOrder.id);
     
 }
-

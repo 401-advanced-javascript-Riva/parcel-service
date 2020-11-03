@@ -10,9 +10,12 @@
     */
 
 //faker allows me to generate mass amounts of data on the fly!
+require('dotenv').config();
 const faker = require('faker');
-// const storeName = process.env.STORE_NAME;
+const storeName = process.env.STORE_NAME;
 const logger = require('./events');
+
+
 
 let id = 1;
 const fakeOrders = () => {
@@ -21,7 +24,7 @@ const fakeOrders = () => {
       let address = faker.address.city();
       let state = faker.address.state();
       const order = {
-          "storeName": 'Caps',
+          "storeName": storeName,
           "id": id,
           "first_name": firstName,
           "last_name": lastName,
