@@ -31,4 +31,11 @@ STORE_NAME=
 
 
 ## UML:
+
+**Phase 1**
+
 ![UML](UML.png);
+
+**Phase 2**
+
+![UML](netSocket.png)
