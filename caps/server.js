@@ -15,22 +15,35 @@ const port = process.env.PORT || 3001;
  
 
 let clients = [];
+
 // Create Server instance 
-// Socket is my connection
+// My server is a place where connections can be made
+// I can specify how many connections I want to have
+// Anyone who wants to connect has to have the port #
+// Socket is a client
 const server = net.createServer(socket => {
+    clients.push(socket);
     socket.on('data', data => {
         const message = JSON.parse(data.toString());
         console.log(message);
         if(message.event == 'pickup') {
-            console.log('Pickup needed!')
+            console.log('Pickup needed!');
+            server.broadcast(data);
         }
+        if(message.event == 'delivered') {
+            console.log('order delivered!');
+            server.broadcast(data);
+        }
+    })
 });
 
-
-socket.end('server is closing connection now');
-}).on('error', err => {
-    console.error(err)
-});
+server.broadcast = data => {
+    //sending message object from vendor
+    // This message is sent to every client
+    clients.forEach(socket => {
+        socket.write(data);
+    })
+}
 
 server.listen(port, () => {  
   console.log(`server listening on port ${port}`);
