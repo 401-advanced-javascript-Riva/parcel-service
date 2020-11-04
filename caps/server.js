@@ -13,9 +13,7 @@ require('dotenv').config();
 const net = require('net');
 const port = process.env.PORT || 3001;
  
-
 let clients = [];
-
 // Create Server instance 
 // My server is a place where connections can be made
 // I can specify how many connections I want to have
