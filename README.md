@@ -14,10 +14,23 @@ In Phase 2, I spread the functionality of the application into multiple applicat
 The core functionality I've built remains the same. The difference in this phase is I use multiple applications to raise and listen for the events. Here the major difference in how I deal with the events.
 
 ### Installing:
+- You need to have Node and npm (node package manager) installed. If you do not have these, head over to Node setup to install node on your local system. Confirm that node and npm are installed by running the following commands in your terminal.
+    
+    `node --version`
+
+    `npm --version`
+
 - `npm i @code-fellows supergoose`
 - `npm i faker` for faking data
 - `npm i dotenv` for holding store name so I can easily pass it around
 - load the `net` module: `const net = require('net`):
+- Install Express and Socket.IO. To install these and save them to package.json file, enter the following command in your terminal, into the project directory.
+
+`npm install --save express socket.io`
+
+- You will want to keep restarting the server. When you make a change, nodemon can help you do this. To install nodemon, open your terminal and enter the following command −
+
+`npm install -g nodemon`
   
 ### dotenv Requirements:
 
