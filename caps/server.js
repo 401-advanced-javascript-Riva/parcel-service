@@ -13,14 +13,20 @@ require('dotenv').config();
 const net = require('net');
 const port = process.env.PORT || 3001;
  
+
+let clients = [];
 // Create Server instance 
 // Socket is my connection
 const server = net.createServer(socket => {
     socket.on('data', data => {
-        console.log(data.toString());
+        const message = JSON.parse(data.toString());
+        console.log(message);
+        if(message.event == 'pickup') {
+            console.log('Pickup needed!')
+        }
 });
 
-socket.write('Server says Hello!');
+
 socket.end('server is closing connection now');
 }).on('error', err => {
     console.error(err)
