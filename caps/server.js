@@ -10,27 +10,22 @@
     - If the payload is ok, broadcast the raw data back out to each of the other connected clients
 */
 require('dotenv').config();
-const faker = require('faker');
-const storeName = process.env.STORE_NAME;
 const net = require('net');
 const port = process.env.PORT || 3001;
  
 // Create Server instance 
 // Socket is my connection
-// The moment the client connects, I will send hello as test.
-// On data, if client sends more data, the function will print it
 const server = net.createServer(socket => {
-    socket.write('Hello')
     socket.on('data', data => {
         console.log(data.toString());
-    })
-})
+});
+
+socket.write('Server says Hello!');
+socket.end('server is closing connection now');
+}).on('error', err => {
+    console.error(err)
+});
 
 server.listen(port, () => {  
   console.log(`server listening on port ${port}`);
 });
- 
-server.on('connection', socket => {
-    console.log('new connection is made');
-    socket.write('Hello, client');
-})
