@@ -22,6 +22,7 @@ The core functionality I've built remains the same. The difference in this phase
 ### dotenv Requirements:
 
 STORE_NAME=
+PORT=
   
 ## Using parcel-service:
 
