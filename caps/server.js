@@ -14,7 +14,7 @@ let clients = [];
 // Socket is a client
     io.on('connection', socket => {
         clients.push(socket);
-        socket.emit('data', data => {
+       io.emit('data', data => {
             const message = JSON.parse(data.toString())
             console.log(message);
             if(message.event == 'pickup') {
@@ -27,41 +27,46 @@ let clients = [];
             }
         })
     })
-// const capsNameSpace = server.of('caps');
-// capsNameSpace.on('connection', socket => {
-//     console.log('someone connected');
-//     capsNameSpace.emit('hi', 'Hello all!');
-// })
+
 let rooms = [];
-io.on('connection', socket => {
-    io.on('adduser', (username, room) =>{
-        socket.username = username;
-        socket.room = room;
-        usernames[username] = username;
-        socket.join(room);
-        socket.emit('', 'SERVER', 'You are connected.');
-        socket.broadcast.to(room).emit('', 'SERVER', username + ' has connected to this room');
-    });
-        io.on('disconnect', () => {
-        // remove the username from list
-        delete usernames[socket.username];
-        // update list of clients
-        socket.emit('updateusers', usernames);
-        // tell everyone that driver or vender has left
-        if(socket.username !== undefined){
-            socket.broadcast.emit('', 'SERVER', socket.username + ' has disconnected');
-            socket.leave(socket.room);
-        }
-    });
-});
-// io.broadcast = data => {
-//     //sending message object from vendor
-//     // This message is sent to every client
-//     clients.forEach(socket => {
-//         socket.write(data);
-//     })
-// }
+class Room {
+    constructor(name, io) {
+      this.name = name;
+      this.users = [];
+      this.namespace = io.of('/caps' + name);
+      this.listenOnRoom();
+    }
+
+    listenOnRoom() {
+      this.namespace.on('connection', (socket) => {
+        
+  
+        socket.on('disconnect', (message) => {
+         console.log(name + 'disconnected');
+        });
+  
+        socket.on('pickup', data => {
+      
+        });
+        socket.on('in-transit', data => {
+      
+        });
+        socket.on('delivered', data => {
+      
+        });
+      });
+    }
+  }
+
+io.broadcast = data => {
+    //sending message object from vendor
+    // This message is sent to every client
+    clients.forEach(socket => {
+        socket.emit(data);
+    })
+}
 
 server.listen(port, () => {  
   console.log(`server listening on port ${port}`);
 });
+module.exports = Room;
