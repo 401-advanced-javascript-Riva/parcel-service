@@ -3,6 +3,8 @@ An event-driven application that uses built-in Node.js events to simulate realti
 
 **Author: Riva Davidowski**
 
+**Collaboration/Credits: Thank you to [Bryant Davis](https://github.com/BryantDavis1986) for assisting me with Phase 3 refactor**
+
 ### Phase 1:
 
 In this first phase, I setup a system of events and handlers, with the intent being to change out the eventing system as I go, but keeping the handlers themselves largely the same. The task of “delivering a package” doesn’t change (the handler), even if the mechanism for triggering that task (the event) does.
