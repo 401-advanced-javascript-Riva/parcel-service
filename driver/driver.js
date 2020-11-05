@@ -24,13 +24,16 @@ class Driver {
         }, 3000)
     }
     deliver() {
-        const message = {
-            "event": 'delivered',
-            "payload": this.currentOrder
-        }
-        this.socket.write(JSON.stringify(message));
+        this.socket.on('in-transit', payload => {
+            console.log(`driver delivered order ${payload.payload.id}`);
+            payload.event = 'delivered';
+            setTimeout(() => {
+                this.socket.emit('delivered', payload);
+            },2000)
+        })
     }
 }
 
 const driver = new Driver();
 driver.pickup();
+driver.deliver();

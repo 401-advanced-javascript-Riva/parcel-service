@@ -3,6 +3,8 @@ An event-driven application that uses built-in Node.js events to simulate realti
 
 **Author: Riva Davidowski**
 
+**Collaboration/Credits: Thank you to [Bryant Davis](https://github.com/BryantDavis1986) for assisting me with Phase 3 refactor**
+
 ### Phase 1:
 
 In this first phase, I setup a system of events and handlers, with the intent being to change out the eventing system as I go, but keeping the handlers themselves largely the same. The task of “delivering a package” doesn’t change (the handler), even if the mechanism for triggering that task (the event) does.
@@ -33,7 +35,8 @@ The core functionality of this app still remains the same but the difference in 
 - load the `net` module: `const net = require('net`):
 - Install Express and Socket.IO. To install these and save them to package.json file, enter the following command in your terminal, into the project directory.
 
-`npm install --save express socket.io`
+`npm i socket.io --save`
+`npm i @types/socket.io-client` for `vendor.js and driver.js`
 
   
 ### dotenv Requirements:
@@ -50,9 +53,13 @@ The core functionality of this app still remains the same but the difference in 
 
 ## Using parcel-service:
 
-- For the first phase, running Node.js in the console and an understanding of the `EventEmitter` class was needed. You can read more about EventEmitter [here](https://nodejs.org/api/events.html#events_asynchronous_vs_synchronous). I created an instance of the EventEmitter class rather than using it alone so that I wouldn't have to create a separate event emitter object to emit events.
+- **For the first phase:** running Node.js in the console and an understanding of the `EventEmitter` class was needed. You can read more about EventEmitter [here](https://nodejs.org/api/events.html#events_asynchronous_vs_synchronous). I created an instance of the EventEmitter class rather than using it alone so that I wouldn't have to create a separate event emitter object to emit events.
 - To start the program, run `node caps.js`
-
+  
+- **For the second phase:** you will have server.js, driver.js and vendor.js all running in the console in separate tabs. This way, you can keep track of the events. Implementation of TCP server starts by creating the server object. By calling `.createServer` on the net module, our server object is created. After this make it listen on a port , printing the server address once the server is listening.
+- Declare connection listener function, Log when a client connnects and listen for data from the connected client. Log the data from the client
+  
+- **For the third phase:**
 
 
 ## UML:

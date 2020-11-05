@@ -27,6 +27,7 @@ vendor.on('connection', socket => {
 driver.on('connection', socket => {
     socket.on('in-transit', payload => {
         console.log(payload);
+            vendor.emit('delivered', payload);
     })
 })
 

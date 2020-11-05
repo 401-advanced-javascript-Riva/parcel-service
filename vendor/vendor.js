@@ -17,8 +17,17 @@ class Vendor {
         // Inside my callback is what tells me the server has accepted the connection
         // The two will stay connected until either one ends the connection
         // As long as they are connected, they can send and receive data
-        this.socket.emit('pickup', this.message);
+        this.socket.on('connect', () => {
+            setInterval(() => {
+                this.generateOrder();
+                this.socket.emit('pickup', this.message);
+            },5000)
+        })
+        this.socket.on('delivered', payload => {
+            console.log(`thank you driver for delivering order ${payload.payload.id}`);
+        })
     }
+
     generateOrder() {
       let firstName = faker.name.firstName();
       let lastName = faker.name.lastName();
@@ -33,7 +42,7 @@ class Vendor {
           "state" : state
       };
       this.id++;
-      let message = {
+      this.message = {
           "event": 'pickup',
           "payload": order
       }
@@ -42,6 +51,3 @@ class Vendor {
 
 let client = new Vendor()
 client.connect();
-setInterval(() => {
-    client.generateOrder() 
-}, 5000);
