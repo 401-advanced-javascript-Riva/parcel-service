@@ -1,26 +1,11 @@
 'use strict';
-/*
-- Creates a pool of connected clients
-- Accept inbound TCP connections on a declared port
-- On new connections, add the client to the connection pool
-- On incoming data from a client:
-    - Read and parse the incoming data/payload
-    - Verify that the data is legitimate
-    - Is it a JSON object with both an event and payload properties?
-    - If the payload is ok, broadcast the raw data back out to each of the other connected clients
-*/
+
 require('dotenv').config();
 const port = process.env.PORT || 3001;
-const server = require('socket.io');
+
 //creating server and namespaces
-const io = server(port);
-
-
-const capsNameSpace = io.of('caps');
-capsNameSpace.on('connection', socket => {
-    console.log('someone connected');
-    capsNameSpace.emit('hi', 'Hello all!');
-})
+const server = require('net').createServer();
+const io = require('socket.io')(server);
 
 let clients = [];
 // My server is a place where connections can be made
@@ -42,9 +27,33 @@ let clients = [];
             }
         })
     })
-
-
-
+// const capsNameSpace = server.of('caps');
+// capsNameSpace.on('connection', socket => {
+//     console.log('someone connected');
+//     capsNameSpace.emit('hi', 'Hello all!');
+// })
+let rooms = [];
+io.on('connection', socket => {
+    io.on('adduser', (username, room) =>{
+        socket.username = username;
+        socket.room = room;
+        usernames[username] = username;
+        socket.join(room);
+        socket.emit('', 'SERVER', 'You are connected.');
+        socket.broadcast.to(room).emit('', 'SERVER', username + ' has connected to this room');
+    });
+        io.on('disconnect', () => {
+        // remove the username from list
+        delete usernames[socket.username];
+        // update list of clients
+        socket.emit('updateusers', usernames);
+        // tell everyone that driver or vender has left
+        if(socket.username !== undefined){
+            socket.broadcast.emit('', 'SERVER', socket.username + ' has disconnected');
+            socket.leave(socket.room);
+        }
+    });
+});
 // io.broadcast = data => {
 //     //sending message object from vendor
 //     // This message is sent to every client
