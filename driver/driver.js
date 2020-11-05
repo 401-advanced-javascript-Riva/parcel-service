@@ -1,10 +1,9 @@
 'use strict';
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 require('dotenv').config();
 const ioClient = require('socket.io-client');
-const port = process.env.PORT;
-const socket = ioClient('ws://localhost:' + port);
+const socket = ioClient('ws://localhost:' + port + '/driver');
 
 
 class Driver {
@@ -12,27 +11,14 @@ class Driver {
         this.currentOrder = undefined;
         this.socket = socket;
     }
-    connect() {
-        // this.socket.connect(port, '127.0.0.1', () => {
-        //     console.log('driver connected');
-        // })
-       this.socket.on('data', data => {
-            const message = JSON.parse(data.toString());
-            if(message.event === 'pickup') {
-                setTimeout(() => {
-                    this.pickup(message.payload);
-                }, 1000);
-            }
-        })
-    }
     pickup(order) {
-        this.currentOrder = order;
-        console.log(`driver picked up order ${order.id}`);
-        const message = {
-            "event": 'in-transit',
-            "payload": order
-        }
-        this.socket.write(JSON.stringify(message));
+        this.socket.on('pickup', payload => {
+            console.log(`driver picked up order ${payload.payload.id}`);
+            payload.event = 'in-transit';
+            setTimeout(() => {
+                socket.emit('in-transit', payload);
+            }, 1000)
+        })
         setTimeout(() => {
             this.deliver();
         }, 3000)
@@ -47,4 +33,4 @@ class Driver {
 }
 
 const driver = new Driver();
-driver.connect();
+driver.pickup();

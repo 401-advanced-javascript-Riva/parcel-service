@@ -9,24 +9,15 @@ const ioClient = require('socket.io-client');
 class Vendor {
     constructor() {
         this.id = 1;
-        this.socket = ioClient(`ws://localhost:${port}`);
+        this.socket = ioClient(`ws://localhost:${port}/vendor`);
+        this.message = {};
     }
     connect() {
         // this method is my vendor class calling the server to connect
         // Inside my callback is what tells me the server has accepted the connection
         // The two will stay connected until either one ends the connection
         // As long as they are connected, they can send and receive data
-        this.socket.on('connection', () => {
-            console.log('vendor connected!', storeName);
-            socket.to(id).emit('join', storeName);
-        })
-       
-        this.socket.on('data', data => {
-            const message = JSON.parse(data.toString());
-            if(message.event === 'delivered') {
-                this.socket.emit('message', message);
-            }
-        })
+        this.socket.emit('pickup', this.message);
     }
     generateOrder() {
       let firstName = faker.name.firstName();
@@ -46,8 +37,6 @@ class Vendor {
           "event": 'pickup',
           "payload": order
       }
-      // I have data to send, I am connected, so send it!
-      this.socket.emit(JSON.stringify(message));
     }
 }
 
