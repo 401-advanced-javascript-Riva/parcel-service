@@ -13,6 +13,13 @@ In Phase 2, I spread the functionality of the application into multiple applicat
 
 The core functionality I've built remains the same. The difference in this phase is I use multiple applications to raise and listen for the events. Here the major difference in how I deal with the events.
 
+### Phase 3:
+
+Phase 3 involves replacing TCP with socket.io. Socket.io allows for cleaner event handling
+and provides web connectivity. Socket.io manages the connection pool, makes broadcasting much easier to operate, and works well both on the terminal (between servers) and with web clients.
+
+The core functionality of this app still remains the same but the difference in this phase is the refactoring of the networking layer.
+
 ### Installing:
 - You need to have Node and npm (node package manager) installed. If you do not have these, head over to Node setup to install node on your local system. Confirm that node and npm are installed by running the following commands in your terminal.
     
@@ -28,16 +35,19 @@ The core functionality I've built remains the same. The difference in this phase
 
 `npm install --save express socket.io`
 
-- You will want to keep restarting the server. When you make a change, nodemon can help you do this. To install nodemon, open your terminal and enter the following command −
-
-`npm install -g nodemon`
   
 ### dotenv Requirements:
 
-  STORE_NAME=
+- In `caps.js` and `driver.js`:
   
-  PORT=
+  `PORT=`
+
+- In `vendor.js`:
   
+  `PORT=`
+
+  `STORE_NAME=`
+
 ## Using parcel-service:
 
 - For the first phase, running Node.js in the console and an understanding of the `EventEmitter` class was needed. You can read more about EventEmitter [here](https://nodejs.org/api/events.html#events_asynchronous_vs_synchronous). I created an instance of the EventEmitter class rather than using it alone so that I wouldn't have to create a separate event emitter object to emit events.
