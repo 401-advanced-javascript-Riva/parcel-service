@@ -4,13 +4,14 @@ require('dotenv').config();
 const port = process.env.PORT || 3001;
 
 //creating server and namespaces
-const io = require('socket.io');
-const server = io(port);
-
-const vendor = server.of('/vendor');
-const driver = server.of('/driver');
-const caps = server.of('/caps');
-
+const app = require('express')();
+const server = app.listen(port);
+const io = require('socket.io')(server);
+app.set('socketio', io);
+app.post('//delivery/:driver/:code', (req, res) => {
+    
+    });
+    
 // My server is a place where connections can be made
 // I can specify how many connections I want to have
 // Anyone who wants to connect has to have the port #
@@ -33,6 +34,24 @@ driver.on('connection', socket => {
             caps.emit('delivered', payload);
     })
 })
+//working on setting up rooms for driver and vendor
+const clientRooms = ['driver', 'vendor'];
+const caps = server.of('/caps');
+const vendor = server.of('/vendor');
+const driver = server.of('/driver').on('connection' ,socket => {
+    caps.emit('welcome driver!');
+    socket.on('joinRoom', room => {
+        if(rooms.includes(clientRooms)) {
+            socket.join(room);
+            io.of('/driver');
+            io.in(room).emit('driver here')
+            return socket.emit('driver connected to room');
+        } else {
+            return socket.emit('err', "error no room named");
+        }
+    })
+})
+
 
 
 const queue = {
