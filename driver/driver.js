@@ -32,8 +32,17 @@ class Driver {
             },2000)
         })
     }
+
 }
 
+    this.socket.emit('getPickups');
+    //for every items in pickups, I have a different emission
+    this.socket.on('pickup', order => {
+        console.log('incoming order', order);
+        this.socket.emit('in-transit', order);
+    });
 const driver = new Driver();
 driver.pickup();
 driver.deliver();
+driver.emit('joinRoom', 'driver')
+driver.on('new driver', res => console.log(res));
