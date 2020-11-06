@@ -60,18 +60,7 @@ server.on('connection', socket => {
 
     })
 })
-/*in vendor.js:
-setInterval(() => {
-    //faker stuff inside
-    console.log('sending order for pickup');
-    socket.emit('pickup', {
-    address:
-    phone:
-})
-}, 500)*/
 
-
-/*
 
 socket.on('getPickups', () => {
     Object.keys(queue.pickup). forEach(id => {
@@ -80,14 +69,5 @@ socket.on('getPickups', () => {
         socket.emit('pickup', {id, payload: queue.pickup[id]})
     })
 })
-*/
-/*
-in driver.js:
-const socket = io.connect('localhost)
-socket.emit('getPickups');
-//for every items in pickups, I have a different emission
-socket.on('pickup', order => {
-    console.log('incoming order', order);
-    socket.emit('in-transit', order);
-});
-*/
+
+

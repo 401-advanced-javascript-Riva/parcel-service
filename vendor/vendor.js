@@ -27,7 +27,6 @@ class Vendor {
             console.log(`thank you driver for delivering order ${payload.payload.id}`);
         })
     }
-
     generateOrder() {
       let firstName = faker.name.firstName();
       let lastName = faker.name.lastName();
