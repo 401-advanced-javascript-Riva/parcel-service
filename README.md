@@ -74,7 +74,7 @@ You will have server.js, driver.js and vendor.js all running in the console in s
   
 You will still need to have server.js, driver.js and vendor.js connected. Implmentation of socket.io takes place by using the require syntax to create a server and open up socket connections. Loading the module socket io take place `const io = require('socket.io'). Creating a namespace for vendors and drivers to connect to is the first step after server creation. 
 
-- **For the fourth phase:**
+- **For the fourth phase: IN PROGRESS**
   
 Bring in Express! The API server handles incoming requests from drivers when a package has been delivered. This simulates the driver scanning a package as they deliver it to a customer.
 The  `POST` route to the API is used to achieve this. The Queue Server Hub( server.js) is alerted by the API server when a delivery has been made. It also keeps a log of the delivery, keyed by retailer and event type and broadcasts “Delivery Confirmations” to retailers.
