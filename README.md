@@ -48,7 +48,7 @@ This phase requres building out the queue itself, getting our vendors subscribed
 `npm i @types/socket.io-client` for `vendor.js and driver.js`
 
   
-### dotenv Requirements:
+### .env Requirements:
 
 - In `caps.js` and `driver.js`:
   
